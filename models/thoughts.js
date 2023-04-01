@@ -2,7 +2,10 @@ const { Schema, model } = require('mongoose');
 
 const thoughtsSchema = new Schema(
   {
-        
+    id: {
+        type: Number,
+    },
+    
     username: {
         type: String,
         required: true,
@@ -26,6 +29,6 @@ const thoughtsSchema = new Schema(
 )
 
 
-const Thoughts = model('course', thoughtsSchema);
+const Thoughts = model('thoughts', thoughtsSchema);
 
 module.exports = Thoughts;
