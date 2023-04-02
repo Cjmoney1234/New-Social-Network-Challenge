@@ -4,7 +4,10 @@ const thoughtsSchema = new Schema(
   {
     id: {
         type: Number,
-    },
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+      },
     
     username: {
         type: String,

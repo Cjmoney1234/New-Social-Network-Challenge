@@ -3,8 +3,7 @@ const { User, Thoughts } = require('../models');
 module.exports = {
   // Get all users
   getUser(req, res) {
-    User.find({username: req.body.username,
-      email: req.body.email})
+    User.find({})
     //   .populate({
     //     path: 'thoughts',
     //     select: ('-__v')
@@ -15,11 +14,11 @@ module.exports = {
 },
   // Get a single user
   getSingleUser(req, res) {
-    User.findOne({ _id: req.params.id })
-    .populate({
-      path: "thoughts",
-      select: "-__v",
-    })
+    User.findOne({ id: req.params._id  })
+    // .populate({
+    //   path: "thoughts",
+    //   select: "-__v",
+    // })
     .select("-__v")
     .then((userData) =>
     !userData
@@ -51,7 +50,7 @@ module.exports = {
   },
   // Delete a user 
   deleteUser(req, res) {
-    User.findOneAndDelete({ _id: req.params.id })
+    User.findOneAndDelete({ id: req.params._id })
       .then((userData) =>
         !userData
           ? res.status(404).json({ message: 'No such user exists' })
@@ -65,7 +64,7 @@ module.exports = {
 
   createFriend({ params }, res) {
     User.findByIdAndUpdate(
-      { _id: params.id },
+      { id: params._id },
       { $addToSet: { friends: params.friendId } },
       { new: true }
     )
@@ -83,7 +82,7 @@ module.exports = {
   },
   deleteFriend({ params }, res) {
     User.findByIdAndUpdate(
-      { _id: params.id },
+      { id: params._id },
       { $pull: { friends: params.friendId } },
       { new: true, runValidators: true }
     )

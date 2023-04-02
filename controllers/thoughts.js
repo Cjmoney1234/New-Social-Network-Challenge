@@ -3,14 +3,13 @@ const { User, Thoughts } = require('../models');
 module.exports = {
   // Get all courses
   getThoughts(req, res) {
-    Thoughts.find({username: req.body.username,
-    text: req.body.text})
+    Thoughts.find({})
       .then((thougtsData) => res.json(thougtsData))
       .catch((err) => res.status(500).json(err));
   },
   // Get a course
   getSingleThoughts(req, res) {
-    Thoughts.findOne({ _id: req.params.id })
+    Thoughts.findOne({ id: req.params._id })
       .select('-__v')
       .then((thougtsData) =>
         !thougtsData
@@ -30,7 +29,7 @@ module.exports = {
   },
   // Delete a course
   deleteThoughts(req, res) {
-    Thoughts.findOneAndDelete({ _id: req.params.id })
+    Thoughts.findOneAndDelete({ id: req.params._id })
     .select('-__v')
       .then((thougtsData) =>
         !thougtsData
