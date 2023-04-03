@@ -15,10 +15,10 @@ module.exports = {
   // Get a single user
   getSingleUser(req, res) {
     User.findOne({ id: req.params._id  })
-    // .populate({
-    //   path: "thoughts",
-    //   select: "-__v",
-    // })
+    .populate({
+      path: "thoughts",
+      select: "-__v",
+    })
     .select("-__v")
     .then((userData) =>
     !userData
